@@ -15,10 +15,23 @@
 # limitations under the License.
 #
 import webapp2
+import random
+def getrandomfortune():
+    fortunes = ["You will inherit a great gift soon.", "Your finances will improve.", "A career change is in your future."]
+    todays_fortune = random.choice(fortunes)
+    return(todays_fortune)
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.write('Eureka')
+        header ='<h1> Fortune Cookie</h1>'
+        fortune = "<strong>" + getrandomfortune() + "</strong>"
+        fortune_sentence = "Your fortune is: " + fortune
+        fortune_paragraph = "<p>" + fortune_sentence + "</p>"
+        lucky_number = "<strong>" + str(random.randint(1,100)) +"</strong>"
+        number_sentence = 'Your lucky number is: ' + lucky_number
+        number_paragraph = "<p>" + number_sentence + "</p>"
+        another_cookie = "<a href='.'> <button> Another cookie please! </buttong></a>"
+        self.response.write( header + fortune_paragraph + number_paragraph+ another_cookie)
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
